@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { FormUtils } from '../../../utils/form-utils';
 //Cuando hay mas de un input se recomienda ya usar formularios reactivos
 @Component({
   selector: 'app-basic-page',
@@ -15,6 +16,7 @@ import {
 })
 export class BasicPageComponent {
   fb = inject(FormBuilder);
+  formUtils = FormUtils;
 
   myForm: FormGroup = this.fb.group({
     name: [
@@ -26,25 +28,25 @@ export class BasicPageComponent {
     inStorage: [0, [Validators.required, Validators.min(0)]],
   });
 
-  isValidField(fieldName: string): boolean | null | undefined {
-    return this.myForm.get(fieldName)?.errors && this.myForm.get(fieldName)?.touched;
-  }
+  // isValidField(fieldName: string): boolean | null | undefined {
+  //   return this.myForm.get(fieldName)?.errors && this.myForm.get(fieldName)?.touched;
+  // }
 
-  getFieldError(fieldName: string): string | null {
-    if (!this.myForm.get(fieldName)) return null;
-    const errors = this.myForm.get(fieldName)?.errors ?? {};
-    for (const key of Object.keys(errors)) {
-      switch (key) {
-        case 'required':
-          return 'Este campo es requerido';
-        case 'minlength':
-          return `Minimo de ${errors['minlength'].requiredLength} caracteres.`;
-        case 'min':
-          return `Valor minimo de ${errors['min'].min}`;
-      }
-    }
-    return null;
-  }
+  // getFieldError(fieldName: string): string | null {
+  //   if (!this.myForm.get(fieldName)) return null;
+  //   const errors = this.myForm.get(fieldName)?.errors ?? {};
+  //   for (const key of Object.keys(errors)) {
+  //     switch (key) {
+  //       case 'required':
+  //         return 'Este campo es requerido';
+  //       case 'minlength':
+  //         return `Minimo de ${errors['minlength'].requiredLength} caracteres.`;
+  //       case 'min':
+  //         return `Valor minimo de ${errors['min'].min}`;
+  //     }
+  //   }
+  //   return null;
+  // }
 
   onSave() {
     if (this.myForm.invalid) {
