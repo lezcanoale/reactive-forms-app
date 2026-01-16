@@ -34,6 +34,8 @@ export class FormUtils {
           return 'El error de patron contra expresion regular';
         case 'emailTaken':
           return 'Email ya en uso.';
+        case 'usernameTaken':
+          return 'Username en uso';
         default:
           return 'Error no controlado';
       }
@@ -81,6 +83,14 @@ export class FormUtils {
       };
     }
 
+    return null;
+  }
+
+  static checkingNickname(control: AbstractControl): ValidationErrors | null {
+    const formValue = control.value;
+    if (formValue === 'alezcano') {
+      return { usernameTaken: true };
+    }
     return null;
   }
 }
