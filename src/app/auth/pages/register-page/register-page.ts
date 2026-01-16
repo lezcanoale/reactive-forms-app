@@ -34,6 +34,7 @@ export class RegisterPageComponent {
       email: [
         '',
         [Validators.required, Validators.email, Validators.pattern(this.formUtils.emailPattern)],
+        [this.formUtils.checkingServerResponse],
       ],
       username: [
         '',
